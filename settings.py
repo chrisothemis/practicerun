@@ -5,6 +5,7 @@ INSTALLED_ADDONS = [
     'aldryn-addons',
     'aldryn-django',
     'aldryn-sso',
+    'django-filer',
     # </INSTALLED_ADDONS>
 ]
 
