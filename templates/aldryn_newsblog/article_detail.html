@@ -1,5 +1,5 @@
 {% extends "aldryn_newsblog/base.html" %}
-{% load i18n staticfiles cms_tags apphooks_config_tags %}
+{% load i18n staticfiles thumbnail cms_tags apphooks_config_tags %}
 
 {% block title %}
     {{ article.title }} - {{ block.super }}
@@ -7,7 +7,13 @@
 
 {% block header %}
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url({% static 'img/about-bg.jpg' %})">
+    <header class="intro-header" style= "background-image: url(
+      {% if article.featured_image_id %}
+          {% thumbnail article.featured_image 1200x400 crop subject_location=article.featured_image.subject_location %}
+      {% else %}
+          {% static 'img/blog-bg.jpg' %}
+      {% endif %}
+    )">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
