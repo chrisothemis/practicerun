@@ -1,4 +1,4 @@
-{% load staticfiles i18n cms_tags sekizai_tags menu_tags %}
+{% load staticfiles i18n cms_tags sekizai_tags menu_tags thumbnail%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,21 +76,33 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    {% block header %}
-      {% placeholder header or %}
-        <header class="intro-header" style="background-image: url({% static 'img/about-bg.jpg' %})">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                        <div class="page-heading">
-                            <h1>{% page_attribute "page_title" %}</h1>
-                        </div>
+    {% render_model_block request.current_page.pagefieldextension %}
+    <header class="intro-header" style= "background-image: url(
+        {% with image=request.current_page.pagefieldextension.background_image %}
+            {% if image %}
+                {% thumbnail image 1200x400 crop subject_location=image.subject_location %}
+            {% else %}
+                {% static 'img/about-bg.jpg' %}
+            {% endif %}
+        {% endwith %}
+    )">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>{% render_model request.current_page "page_title" %}</h1>
+                        {% if request.current_page.pagefieldextension.subtitle %}
+                            <hr class="small">
+                            <span class="subheading">
+                                {{ request.current_page.pagefieldextension.subtitle }}
+                            </span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-        </header>
-      {% endplaceholder %}
-    {% endblock %}
+        </div>
+    </header>
+    {% endrender_model_block %}
 
     <!-- Main Content -->
     <div class="container">
