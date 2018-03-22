@@ -28,4 +28,5 @@ aldryn_addons.settings.load(locals())
 INSTALLED_APPS.extend([
     # add your project specific apps here
     'my_custom_page_extension',
+    'my_custom_social_addon',
 ])
