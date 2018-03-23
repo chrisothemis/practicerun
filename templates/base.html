@@ -81,6 +81,8 @@
         {% with image=request.current_page.pagefieldextension.background_image %}
             {% if image %}
                 {% thumbnail image 1200x400 crop subject_location=image.subject_location %}
+            {% elif article.featured_image_id%}
+                {% thumbnail article.featured_image 1200x400 crop subject_location=article.featured_image.subject_location %}
             {% else %}
                 {% static 'img/about-bg.jpg' %}
             {% endif %}
