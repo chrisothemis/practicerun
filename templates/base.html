@@ -91,13 +91,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="page-heading">
-                        <h1>{% render_model request.current_page "page_title" %}</h1>
-                        {% if request.current_page.pagefieldextension.subtitle %}
-                            <hr class="small">
-                            <span class="subheading">
-                                {{ request.current_page.pagefieldextension.subtitle }}
-                            </span>
+                      {% if article %}
+                            <div class="post-heading">
+                              <h1>{% render_model article "title" "" "" "striptags" %}</h1>
+                              <h2 class="subheading">{% render_model article "lead_in" "" "" "striptags" %}</h2>
+                                  {% include "aldryn_newsblog/includes/date.html" %}
+                      {% else %}
+                            <div class="page-heading">
+                                <h1>{% render_model request.current_page "page_title" %}</h1>
+                                {% if request.current_page.pagefieldextension.subtitle %}
+                                    <hr class="small">
+                                    <span class="subheading">
+                                        {{ request.current_page.pagefieldextension.subtitle }}
+                                    </span>
+                                {% endif %}
                         {% endif %}
                     </div>
                 </div>
